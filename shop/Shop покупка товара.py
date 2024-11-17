@@ -1,0 +1,51 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import  time
+
+driver = webdriver.Chrome()
+driver.maximize_window()
+driver.get("https://practice.automationtesting.in")
+driver.implicitly_wait(15)
+Shop = driver.find_element("id","menu-item-40")
+Shop.click()
+driver.execute_script("window.scrollBy(0,600);")
+HTML5 = driver.find_element("css selector","[data-product_id='182']")
+HTML5.click()
+time.sleep(3)
+Basked = driver.find_element("class name","wpmenucart-contents")
+Basked.click()
+time.sleep(3)
+Proceed = WebDriverWait(driver,5).until(EC.element_to_be_clickable((By.CLASS_NAME,"checkout-button")))
+Proceed = driver.find_element("class name","checkout-button")
+Proceed.click()
+First_Name = WebDriverWait(driver,5).until(EC.element_to_be_clickable((By.ID,"billing_first_name")))
+First_Name.send_keys("Ivan")
+Last_Name = driver.find_element("id","billing_last_name")
+Last_Name.send_keys("Petrov")
+Email = driver.find_element("id","billing_email")
+Email.send_keys("PP@ya.ru")
+Phone = driver.find_element("id","billing_phone")
+Phone.send_keys("82254568246")
+
+County = driver.find_element("class name","select2-arrow")
+County.click()
+County2 = driver.find_element("id","s2id_autogen1_search")
+County2.send_keys("Åland Islands")
+Aland_Islands = driver.find_element("class name","select2-match")
+Aland_Islands.click()
+Address = driver.find_element("id","billing_address_1")
+Address.send_keys("FFSS 15")
+
+Town_City = driver.find_element("id","billing_city")
+Town_City.send_keys("Qwerty")
+Postcode_ZIP = driver.find_element("id","billing_postcode")
+Postcode_ZIP.send_keys("5108842")
+Check_Payments = driver.find_element("id","payment_method_cheque")
+Check_Payments.click()
+Place_order = driver.find_element("id","place_order")
+Place_order.click()
+Element_text = WebDriverWait(driver,5).until(EC.text_to_be_present_in_element((By.CLASS_NAME,"woocommerce-thankyou-order-received"),"Thank you. Your order has been received."))
+Check_Payments = WebDriverWait(driver,5).until(EC.text_to_be_present_in_element((By.CLASS_NAME,"method"),"Check Payments"))
+
